@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+import Linkify from 'react-linkify';
 import './TodoItem.css';
-
 class TodoItem extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -9,7 +9,9 @@ class TodoItem extends Component {
   
   render() {
     const { text, checked, id, onToggle, onRemove } = this.props;
-
+    const textV = text.split(/(\n|\r\n)/g).map( line => {
+      return (<span>{line}<br/></span>);
+    });
     return (
       <div className="todo-item" onClick={() => onToggle(id)}>
         <div className="remove" onClick={(e) => {
@@ -17,13 +19,9 @@ class TodoItem extends Component {
           onRemove(id)}
         }>&times;</div>
         <div className={`todo-text ${checked && 'checked'}`}>
-          <div>
-            {
-              text.split(/(\n|\r\n)/g).map( line => {
-                return (<span>{line}<br/></span>)
-              })
-            }
-          </div>
+          <Linkify target="_blank">
+            {textV}
+          </Linkify>
         </div>
         {
           checked && (<div className="check-mark">&#x2713;</div>)
