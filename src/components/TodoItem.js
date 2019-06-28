@@ -17,7 +17,13 @@ class TodoItem extends Component {
           onRemove(id)}
         }>&times;</div>
         <div className={`todo-text ${checked && 'checked'}`}>
-          <div>{text}</div>
+          <div>
+            {
+              text.split(/(\n|\r\n)/g).map( line => {
+                return (<span>{line}<br/></span>)
+              })
+            }
+          </div>
         </div>
         {
           checked && (<div className="check-mark">&#x2713;</div>)

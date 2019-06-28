@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import 'antd/dist/antd.css'
 import TodoListTemplate from './components/TodoListTemplate';
 import Form from './components/Form';
 import TodoItemList from './components/TodoItemList';
@@ -25,21 +26,26 @@ class App extends Component {
 
   handleCreate = () => {
     const { input, todos } = this.state;
-    this.setState({
-      input: '', // 인풋 비우고
-      // concat 을 사용하여 배열에 추가
-      todos: todos.concat({
-        id: this.id++,
-        text: input,
-        checked: false
-      })
-    });
+    if (input.trim().length > 0) {
+      this.setState({
+        input: '', // 인풋 비우고
+        // concat 을 사용하여 배열에 추가
+        todos: todos.concat({
+          id: this.id++,
+          text: input,
+          checked: false
+        })
+      });
+    }
   }
 
   handleKeyPress = (e) => {
     // 눌려진 키가 Enter 면 handleCreate 호출
     if(e.key === 'Enter') {
-      this.handleCreate();
+      if (!e.shiftKey){
+        e.preventDefault();
+        this.handleCreate();
+      }
     }
   }
 
