@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Linkify from 'react-linkify';
 import './TodoItem.css';
+import TodoUrl from './TodoUrl.js';
 const regexURL = /(http(s)?:\/\/|www.)([a-z0-9\w]+\.*)+[a-z0-9]{2,4}([\/a-z0-9-%#?&=\w])+(\.[a-z0-9]{2,4}(\?[\/a-z0-9-%#?&=\w]+)*)*/gi;
 class TodoItem extends Component {
 
@@ -27,11 +28,11 @@ class TodoItem extends Component {
           <Linkify target="_blank">
             {textV}
           </Linkify>
+          { arr.length > 0 ? (<TodoUrl url={arr[0]} />) : '' }
         </div>
         {
           checked && (<div className="check-mark">&#x2713;</div>)
         }
-        { arr.length > 0 ? (<div>{arr[0]}</div>) : '' }
       </div>
     );
   }
